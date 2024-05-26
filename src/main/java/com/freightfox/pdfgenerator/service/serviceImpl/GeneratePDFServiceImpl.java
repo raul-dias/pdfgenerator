@@ -6,6 +6,8 @@ import com.freightfox.pdfgenerator.service.GeneratePDFService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+
 @Service
 public class GeneratePDFServiceImpl implements GeneratePDFService {
 
@@ -13,8 +15,7 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
     CreatePDFService createPDFService;
 
     @Override
-    public String generatePDF(Invoice invoice) {
-        createPDFService.createPDF(invoice);
-        return invoice.getBuyer();
+    public File generatePDF(Invoice invoice) {
+        return createPDFService.createPDF(invoice);
     }
 }

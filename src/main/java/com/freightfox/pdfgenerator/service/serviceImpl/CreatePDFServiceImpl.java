@@ -28,10 +28,10 @@ public class CreatePDFServiceImpl implements CreatePDFService {
     public File createPDF(Invoice invoice) {
         Context context = new Context();
         context.setVariable("invoice", invoice);
-
+        File file = new File("temp.pdf");
         String htmlContent = templateEngine.process("invoiceTemplate.html", context);
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(pdfDirectory + "pdfFileName");
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
             ITextRenderer renderer = new ITextRenderer();
             renderer.setDocumentFromString(htmlContent);
             renderer.layout();
@@ -40,6 +40,6 @@ public class CreatePDFServiceImpl implements CreatePDFService {
         } catch (FileNotFoundException | DocumentException e) {
             logger.error(e.getMessage(), e);
         }
-        return null;
+        return file;
     }
 }
