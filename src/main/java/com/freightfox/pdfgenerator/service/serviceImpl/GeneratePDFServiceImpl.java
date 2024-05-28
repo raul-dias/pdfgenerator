@@ -15,6 +15,10 @@ public class GeneratePDFServiceImpl implements GeneratePDFService {
     @Autowired
     CreatePDFService createPDFService;
 
+    /**
+     * temp in-memory db to store the File details.
+     * Ideally this should be a call to a DB with the file stored as a CLOB
+     */
     HashMap<Invoice,File> db = new HashMap<>();
 
     @Override

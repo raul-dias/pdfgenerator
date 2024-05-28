@@ -6,5 +6,10 @@ import java.io.File;
 
 public interface CreatePDFService {
 
+    /**
+     * Method to create a new PDF
+     * @param invoice
+     * @return File
+     */
     public File createPDF(Invoice invoice);
 }

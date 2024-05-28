@@ -22,8 +22,6 @@ public class CreatePDFServiceImpl implements CreatePDFService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    private static String pdfDirectory = "D:\\dev\\FreightFox\\pdfs\\";
-
     @Override
     public File createPDF(Invoice invoice) {
         Context context = new Context();

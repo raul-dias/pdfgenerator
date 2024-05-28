@@ -23,20 +23,28 @@ public class AppController {
     @GetMapping("/test")
     public String test(){return "helloWorld";}
 
+    /**
+     * Api will return the invoice.pdf file based on json.
+     * @param invoice
+     * @return File or Internal Server Error
+     */
     @PostMapping("/generatePDF")
-    public ResponseEntity<Resource> generatePDF(@RequestBody Invoice invoice) throws FileNotFoundException {
+    public ResponseEntity<Resource> generatePDF(@RequestBody Invoice invoice) {
         File file = generatePDFservice.generatePDF(invoice);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(file.length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(resource);
+        try{
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentLength(file.length())
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(resource);
+        } catch (FileNotFoundException e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
     }
 }

@@ -3,6 +3,9 @@ package com.freightfox.pdfgenerator.DTO;
 import lombok.Data;
 import java.util.List;
 
+/**
+ * Object to describe the invoice details.
+ */
 @Data
 public class Invoice {
 
